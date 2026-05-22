@@ -16,6 +16,7 @@ import 'package:lms_student/features/widgets/error_feedback_widget.dart';
 import 'package:lms_student/core/services/remote/endpoints.dart';
 import 'package:lms_student/features/home/presentation/get_data_from_cache.dart';
 import 'package:lms_student/features/widgets/custom_image.dart';
+import 'package:lms_student/features/widgets/custom_user_avatar.dart';
 
 class MyCoursesScreenAfterLogin extends StatefulWidget {
   const MyCoursesScreenAfterLogin({super.key});
@@ -82,19 +83,33 @@ class _MyCoursesScreenAfterLoginState extends State<MyCoursesScreenAfterLogin> {
                       color: context.colorScheme.onSurface,
                     ),
                   ),
-                  Container(
-                    width: 44.w,
-                    height: 44.h,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: context.colorScheme.secondary,
-                    ),
-                    child: CustomImage(
-                      imagePath: getDataFromCache(ApiKey.image),
-                      width: 44.w,
-                      height: 44.h,
-                      borderRadius: BorderRadius.circular(22.r),
-                    ),
+                  Builder(
+                    builder: (context) {
+                      final image = getDataFromCache(ApiKey.image);
+                      if (image == null || image.isEmpty) {
+                        return CustomUserAvatar(
+                          firstName: getDataFromCache(ApiKey.firstName) ?? '',
+                          lastName: getDataFromCache(ApiKey.lastName) ?? '',
+                          size: 44,
+                          borderColor: Colors.transparent,
+                        );
+                      }
+                      return Container(
+                        width: 44.w,
+                        height: 44.h,
+                        clipBehavior: Clip.antiAlias,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: context.colorScheme.secondary,
+                        ),
+                        child: CustomImage(
+                          imagePath: image,
+                          width: 44.w,
+                          height: 44.h,
+                          borderRadius: BorderRadius.circular(22.r),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -211,7 +226,7 @@ class _MyCoursesScreenAfterLoginState extends State<MyCoursesScreenAfterLogin> {
                               instructorName: course.instructorName,
                               imagePath: course.image,
                               progressPercentage: course.progress,
-                              progressValue: course.progress?.toDouble() ?? 0,
+                              progressValue: (course.progress ?? 0) / 1.0,
                               onTap: () {
                                 context.push(
                                   AppRoutes.courseDetailsScreen,
