@@ -211,7 +211,7 @@ class _MyCoursesScreenAfterLoginState extends State<MyCoursesScreenAfterLogin> {
                               instructorName: course.instructorName,
                               imagePath: course.image,
                               progressPercentage: course.progress,
-                              progressValue: course.progress.toDouble(),
+                              progressValue: course.progress?.toDouble() ?? 0,
                               onTap: () {
                                 context.push(
                                   AppRoutes.courseDetailsScreen,
