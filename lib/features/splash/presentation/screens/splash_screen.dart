@@ -73,8 +73,9 @@ class _SplashScreenState extends State<SplashScreen>
     return BlocListener<SplashBloc, SplashState>(
       listener: (context, state) {
         if (state is SplashLoaded || state is SplashError) {
-          final timeSinceStart =
-              DateTime.now().difference(_startTime).inMilliseconds;
+          final timeSinceStart = DateTime.now()
+              .difference(_startTime)
+              .inMilliseconds;
           // Ensure a minimum splash duration of 3 seconds for better UX
           final remainingDelay = (3000 - timeSinceStart).clamp(0, 3000);
 
@@ -155,7 +156,10 @@ class _SplashScreenState extends State<SplashScreen>
                           child: Stack(
                             children: [
                               BackdropFilter(
-                                filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+                                filter: ImageFilter.blur(
+                                  sigmaX: 12,
+                                  sigmaY: 12,
+                                ),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
@@ -273,4 +277,3 @@ class _SplashScreenState extends State<SplashScreen>
     }
   }
 }
-

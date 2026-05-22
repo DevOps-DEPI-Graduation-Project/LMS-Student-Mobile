@@ -11,6 +11,9 @@ import 'package:lms_student/features/widgets/custom_primary_button.dart';
 import 'package:lms_student/features/widgets/custom_dialog.dart';
 import 'package:lms_student/features/widgets/error_feedback_widget.dart';
 import 'package:lms_student/features/widgets/loading_indicator_widget.dart';
+import 'package:lms_student/core/services/local/cache_helper.dart';
+import 'package:lms_student/core/services/remote/endpoints.dart';
+import 'package:lms_student/features/widgets/login_dialog.dart';
 
 class CourseDetailsScreen extends StatefulWidget {
   final String? slug;
@@ -312,6 +315,14 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                         onTap: isEnrollLoading
                             ? null
                             : () {
+                                final token = CacheHelper.getDataString(key: ApiKey.accessToken);
+                                if (token == null || token.isEmpty) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (dialogContext) => const LoginDialog(),
+                                  );
+                                  return;
+                                }
                                 showDialog(
                                   context: context,
                                   builder: (dialogContext) => CustomDialog(

@@ -42,6 +42,11 @@ class _ChangePasswordBodyState extends State<ChangePasswordBody> {
 
   @override
   Widget build(BuildContext context) {
+    final double iconSize = context.responsiveValue(
+      mobile: 18.w,
+      tablet: 18,
+      desktop: 22,
+    );
     return BlocListener<ProfileBloc, ProfileState>(
       listener: (context, state) {
         if (state is ChangePasswordSuccess) {
@@ -61,136 +66,139 @@ class _ChangePasswordBodyState extends State<ChangePasswordBody> {
           );
         }
       },
-      child: Center(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 32.h),
-          child: ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: 400.w),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    context.tr('change_password'),
-                    style: context.textTheme.headlineMedium!.copyWith(
-                      color: context.colorScheme.onSurface,
-                      fontWeight: FontWeight.w900,
-                    ),
+      child: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 64.h),
+        child: Column(
+          children: [
+            Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: 500.w),
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 24.w,
+                    vertical: 40.h,
                   ),
-                  SizedBox(height: 8.h),
-                  Text(
-                    context.tr('update_security_desc'),
-                    style: context.textTheme.bodyMedium!.copyWith(
-                      color: context.colorScheme.onSurfaceVariant,
-                    ),
-                  ),
-                  SizedBox(height: 40.h),
-                  CustomTextFormField(
-                    controller: _oldPasswordController,
-                    hintText: context.tr('old_password'),
-                    prefixIcon: Icon(
-                      Icons.lock_outline_rounded,
-                      size: context.isDesktop ? 22 : 18.w,
-                    ),
-                    isPassword: true,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return context.tr('required');
-                      }
-                      return null;
-                    },
-                    keyboardType: TextInputType.visiblePassword,
-                  ),
-
-                  SizedBox(height: 16.h),
-
-                  CustomTextFormField(
-                    controller: _newPasswordController,
-                    hintText: context.tr('new_password'),
-                    prefixIcon: Icon(
-                      Icons.key_rounded,
-                      size: context.isDesktop ? 22 : 18.w,
-                    ),
-                    isPassword: true,
-                    validator: (value) => validatePassword(value),
-                    keyboardType: TextInputType.visiblePassword,
-                  ),
-
-                  SizedBox(height: 16.h),
-
-                  CustomTextFormField(
-                    controller: _confirmPasswordController,
-                    hintText: context.tr('confirm_new_password'),
-                    prefixIcon: Icon(
-                      Icons.done_all_rounded,
-                      size: context.isDesktop ? 22 : 18.w,
-                    ),
-                    isPassword: true,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return context.tr('required');
-                      }
-                      if (value != _newPasswordController.text) {
-                        return context.tr('passwords_do_not_match');
-                      }
-                      return null;
-                    },
-                    keyboardType: TextInputType.visiblePassword,
-                  ),
-
-                  SizedBox(height: 32.h),
-
-                  BlocBuilder<ProfileBloc, ProfileState>(
-                    builder: (context, state) {
-                      final isLoading = state is ProfileLoading;
-                      return CustomPrimaryButton(
-                        text: isLoading
-                            ? context.tr('updating')
-                            : context.tr('update_password'),
-                        onTap: isLoading
-                            ? null
-                            : () {
-                                if (_formKey.currentState!.validate()) {
-                                  FocusScope.of(context).unfocus();
-                                  context.read<ProfileBloc>().add(
-                                    ChangePasswordEvent(
-                                      request: ChangePasswordModel(
-                                        oldPassword:
-                                            _oldPasswordController.text,
-                                        newPassword:
-                                            _newPasswordController.text,
-                                      ),
-                                    ),
-                                  );
-                                }
-                              },
-                        width: double.infinity,
-                      );
-                    },
-                  ),
-
-                  SizedBox(height: 24.h),
-
-                  Center(
-                    child: TextButton.icon(
-                      onPressed: () => context.pop(),
-                      icon: Icon(Icons.arrow_back_ios_new_rounded, size: 14.w),
-                      label: Text(context.tr('back')),
-                      style: TextButton.styleFrom(
-                        foregroundColor: context.colorScheme.onSurface,
-                        textStyle: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14.sp,
-                        ),
+                  decoration: BoxDecoration(
+                    color: context.colorScheme.surface,
+                    borderRadius: BorderRadius.circular(20.r),
+                    border: Border.all(
+                      color: context.colorScheme.onSurface.withValues(
+                        alpha: 0.05,
                       ),
                     ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: context.colorScheme.onSurface.withValues(
+                          alpha: 0.04,
+                        ),
+                        blurRadius: 16,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
                   ),
-                ],
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          context.tr('change_password'),
+                          style: context.textTheme.titleLarge?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: context.colorScheme.onSurface,
+                          ),
+                        ),
+                        SizedBox(height: 8.h),
+                        Text(
+                          context.tr('update_security_desc'),
+                          style: context.textTheme.bodyMedium?.copyWith(
+                            color: context.colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                        SizedBox(height: 40.h),
+                        CustomTextFormField(
+                          controller: _oldPasswordController,
+                          hintText: context.tr('old_password'),
+                          prefixIcon: Icon(
+                            Icons.lock_outline_rounded,
+                            size: iconSize,
+                          ),
+                          isPassword: true,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return context.tr('required');
+                            }
+                            return null;
+                          },
+                          keyboardType: TextInputType.visiblePassword,
+                        ),
+                        SizedBox(height: 24.h),
+                        CustomTextFormField(
+                          controller: _newPasswordController,
+                          hintText: context.tr('new_password'),
+                          prefixIcon: Icon(Icons.key_rounded, size: iconSize),
+                          isPassword: true,
+                          validator: (value) =>
+                              validatePassword(value, context),
+                          keyboardType: TextInputType.visiblePassword,
+                        ),
+                        SizedBox(height: 24.h),
+                        CustomTextFormField(
+                          controller: _confirmPasswordController,
+                          hintText: context.tr('confirm_new_password'),
+                          prefixIcon: Icon(
+                            Icons.done_all_rounded,
+                            size: iconSize,
+                          ),
+                          isPassword: true,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return context.tr('required');
+                            }
+                            if (value != _newPasswordController.text) {
+                              return context.tr('passwords_do_not_match');
+                            }
+                            return null;
+                          },
+                          keyboardType: TextInputType.visiblePassword,
+                        ),
+                        SizedBox(height: 40.h),
+                        BlocBuilder<ProfileBloc, ProfileState>(
+                          builder: (context, state) {
+                            final isLoading = state is ProfileLoading;
+                            return CustomPrimaryButton(
+                              text: isLoading
+                                  ? context.tr('updating')
+                                  : context.tr('update_password'),
+                              onTap: isLoading
+                                  ? null
+                                  : () {
+                                      if (_formKey.currentState!.validate()) {
+                                        FocusScope.of(context).unfocus();
+                                        context.read<ProfileBloc>().add(
+                                          ChangePasswordEvent(
+                                            request: ChangePasswordModel(
+                                              oldPassword:
+                                                  _oldPasswordController.text,
+                                              newPassword:
+                                                  _newPasswordController.text,
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                    },
+                              width: double.infinity,
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );

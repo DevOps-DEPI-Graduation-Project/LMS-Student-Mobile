@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lms_student/features/explore/presentation/screens/explore_screen.dart';
 import 'package:lms_student/features/home/presentation/screens/home_screen_before_login.dart';
 import 'package:lms_student/root/custom_nav_bar.dart';
+import 'package:lms_student/features/widgets/login_dialog.dart';
 
 class RootBeforeLogin extends StatefulWidget {
   const RootBeforeLogin({super.key});
@@ -22,6 +23,13 @@ class _RootBeforeLoginState extends State<RootBeforeLogin> {
   ];
 
   void changePage(int index) {
+    if (index == 2 || index == 3) {
+      showDialog(
+        context: context,
+        builder: (dialogContext) => const LoginDialog(),
+      );
+      return;
+    }
     setState(() {
       currentIndex = index;
     });

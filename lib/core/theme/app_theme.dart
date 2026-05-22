@@ -9,6 +9,7 @@ class AppTheme {
   static const _secondary = Color(0xFFA8DF8E);
   static const _onSecondary = Color(0xFF0A3D2E);
   static const _backgroundLight = Color(0xFFF3F7F8);
+  static const _backgroundDark = Color(0xFF121A1F);
   static const _textPrimaryLight = Color(0xFF102A33);
   static const _textSecondaryLight = Color(0xFF37474F);
   static const _textTertiary = Color(0xFF607D8B);
@@ -120,16 +121,15 @@ class AppTheme {
   }
 
   static ThemeData get darkTheme {
-    final colorScheme = const ColorScheme.dark(
+    const colorScheme = ColorScheme.dark(
       primary: Color(0xFF1A8FAD),
       onPrimary: Colors.white,
+      background: _backgroundDark,
       secondary: _secondary,
       onSecondary: _onSecondary,
-      background: Color(0xFF121A1F),
-      onBackground: Color(0xFFE0E7EB),
       onSurface: Color(0xFFE0E7EB),
       surface: Color(0xFF1A242B),
-      surfaceVariant: Color(0xFF121A1F),
+      surfaceContainerHighest: Color(0xFF121A1F),
       onSurfaceVariant: Color(0xFFB0BEC5),
       error: Color(0xFFEF5350),
       onError: Colors.white,
@@ -151,10 +151,10 @@ class AppTheme {
       brightness: brightness,
       colorScheme: colorScheme,
       textTheme: _buildTextTheme(colorScheme, textTertiaryColor),
-      scaffoldBackgroundColor: colorScheme.background,
+      scaffoldBackgroundColor: isDark ? _backgroundDark : colorScheme.background,
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: isDark ? const Color(0xFF121A1F) : colorScheme.surface,
+        fillColor: isDark ? _backgroundDark : colorScheme.surface,
         hintStyle: TextStyle(color: textTertiaryColor),
         labelStyle: TextStyle(color: colorScheme.onSurfaceVariant),
         contentPadding: const EdgeInsets.symmetric(

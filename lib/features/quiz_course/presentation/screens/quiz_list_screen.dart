@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lms_student/core/extensions/context_extensions.dart';
 import 'package:lms_student/features/quiz_course/presentation/bloc/quiz_course_bloc.dart';
 import 'package:lms_student/features/widgets/loading_indicator_widget.dart';
+import 'package:lms_student/features/widgets/empty_state_widget.dart';
 import 'package:lms_student/features/widgets/error_feedback_widget.dart';
 import 'package:go_router/go_router.dart';
 import 'widgets/performance_summary_card.dart';
@@ -70,8 +71,9 @@ class _QuizListScreenState extends State<QuizListScreen> {
           } else if (state is GetQuizzesSuccess) {
             final quizzes = state.uiModel?.quizzes ?? [];
             if (quizzes.isEmpty) {
-              return Center(
-                child: Text(context.tr('view_course_nothing_added')),
+              return EmptyStateWidget(
+                icon: Icons.quiz_outlined,
+                title: context.tr('no_quizzes_found'),
               );
             }
 
@@ -95,7 +97,10 @@ class _QuizListScreenState extends State<QuizListScreen> {
 
   Widget _buildQuizList(List quizzes, bool isPaginating) {
     if (quizzes.isEmpty) {
-      return Center(child: Text(context.tr('view_course_notFound')));
+      return EmptyStateWidget(
+        icon: Icons.quiz_outlined,
+        title: context.tr('no_quizzes_found'),
+      );
     }
     return NotificationListener<ScrollNotification>(
       onNotification: _onScrollNotification,

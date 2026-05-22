@@ -80,7 +80,7 @@ class ForgotPasswordBody extends StatelessWidget {
                       Icons.alternate_email_rounded,
                       size: context.isDesktop ? 22 : 18.w,
                     ),
-                    validator: (value) => validateEmail(value),
+                    validator: (value) => validateEmail(value, context),
                     keyboardType: TextInputType.emailAddress,
                   ),
 

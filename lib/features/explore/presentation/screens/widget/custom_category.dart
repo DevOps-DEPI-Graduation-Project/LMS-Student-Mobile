@@ -7,6 +7,9 @@ import 'package:lms_student/core/extensions/context_extensions.dart';
 import 'package:lms_student/core/localization/app_localizations.dart';
 import 'package:lms_student/core/routing/app_routes.dart';
 import 'package:lms_student/features/widgets/custom_primary_button.dart';
+import 'package:lms_student/core/services/local/cache_helper.dart';
+import 'package:lms_student/core/services/remote/endpoints.dart';
+import 'package:lms_student/features/widgets/login_dialog.dart';
 
 class CustomCategory extends StatefulWidget {
   final String title;
@@ -147,6 +150,14 @@ class _CustomCategoryState extends State<CustomCategory> {
                   color: context.colorScheme.onPrimary,
                 ),
                 onTap: () {
+                  final token = CacheHelper.getDataString(key: ApiKey.accessToken);
+                  if (token == null || token.isEmpty) {
+                    showDialog(
+                      context: context,
+                      builder: (dialogContext) => const LoginDialog(),
+                    );
+                    return;
+                  }
                   context.push(AppRoutes.packageDetails, extra: widget.slug);
                 },
               ),

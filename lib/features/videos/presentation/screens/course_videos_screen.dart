@@ -12,6 +12,7 @@ import 'package:lms_student/features/videos/data/models/video_model.dart';
 import 'package:lms_student/features/videos/presentation/widgets/custom_course_videos_item.dart';
 import 'package:lms_student/features/videos/utils/video_duration_utils.dart';
 import 'package:lms_student/features/widgets/loading_indicator_widget.dart';
+import 'package:lms_student/features/widgets/empty_state_widget.dart';
 import 'package:lms_student/features/widgets/error_feedback_widget.dart';
 
 class CourseVideosScreen extends StatefulWidget {
@@ -70,11 +71,9 @@ class _CourseVideosScreenState extends State<CourseVideosScreen> {
               );
             } else if (state is VideosLoaded) {
               if (state.videos.isEmpty) {
-                return Center(
-                  child: Text(
-                    context.tr("no_videos_found"),
-                    style: context.textTheme.bodyLarge,
-                  ),
+                return EmptyStateWidget(
+                  icon: Icons.video_library_outlined,
+                  title: context.tr('no_videos_found'),
                 );
               }
 
@@ -89,9 +88,11 @@ class _CourseVideosScreenState extends State<CourseVideosScreen> {
                           WatchedVideoEvent(
                             courseSlug: widget.slug,
                             videoSlug: state.videos[currentIndex].slug,
-                            duration: parseDurationToSeconds(
-                              state.videos[currentIndex].duration,
-                            ) + 200,
+                            duration:
+                                parseDurationToSeconds(
+                                  state.videos[currentIndex].duration,
+                                ) +
+                                200,
                           ),
                         );
                       },
@@ -126,15 +127,15 @@ class _CourseVideosScreenState extends State<CourseVideosScreen> {
                           ),
                         ),
                         SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                            (context, index) {
-                              return CustomCourseVideosItem(
-                                video: state.videos[index],
-                                onTap: () => playVideo(index, state.videos),
-                              );
-                            },
-                            childCount: state.videos.length,
-                          ),
+                          delegate: SliverChildBuilderDelegate((
+                            context,
+                            index,
+                          ) {
+                            return CustomCourseVideosItem(
+                              video: state.videos[index],
+                              onTap: () => playVideo(index, state.videos),
+                            );
+                          }, childCount: state.videos.length),
                         ),
                       ],
                     ),

@@ -96,7 +96,7 @@ class LoginBody extends StatelessWidget {
                       size: context.isDesktop ? 22 : 18.w,
                     ),
                     keyboardType: TextInputType.emailAddress,
-                    validator: (value) => validateEmail(value),
+                    validator: (value) => validateEmail(value, context),
                   ),
 
                   SizedBox(height: 16.h),

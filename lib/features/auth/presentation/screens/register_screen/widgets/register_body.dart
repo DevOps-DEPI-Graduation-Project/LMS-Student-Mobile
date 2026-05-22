@@ -90,7 +90,7 @@ class RegisterBody extends StatelessWidget {
                             Icons.person_outline_rounded,
                             size: context.isDesktop ? 22 : 22.w,
                           ),
-                          validator: (value) => validateFirstName(value),
+                          validator: (value) => validateFirstName(value, context),
                         ),
                       ),
 
@@ -103,7 +103,7 @@ class RegisterBody extends StatelessWidget {
                             Icons.person_outline_rounded,
                             size: context.isDesktop ? 22 : 22.w,
                           ),
-                          validator: (value) => validateLastName(value),
+                          validator: (value) => validateLastName(value, context),
                         ),
                       ),
                     ],
@@ -117,7 +117,7 @@ class RegisterBody extends StatelessWidget {
                       Icons.alternate_email_rounded,
                       size: context.isDesktop ? 22 : 22.w,
                     ),
-                    validator: (value) => validateEmail(value),
+                    validator: (value) => validateEmail(value, context),
                     keyboardType: TextInputType.emailAddress,
                   ),
 
@@ -130,7 +130,7 @@ class RegisterBody extends StatelessWidget {
                       Icons.lock_outline_rounded,
                       size: context.isDesktop ? 22 : 22.w,
                     ),
-                    validator: (value) => validatePassword(value),
+                    validator: (value) => validatePassword(value, context),
                   ),
 
                   SizedBox(height: 16.h),

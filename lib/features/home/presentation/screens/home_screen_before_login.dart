@@ -54,10 +54,11 @@ class _HomeScreenBeforeLoginState extends State<HomeScreenBeforeLogin> {
                   ),
                 ],
               ),
-              child: Icon(
-                Icons.code_rounded,
-                size: 20.sp,
-                color: context.colorScheme.primary,
+              child: Image.asset(
+                AppAssets.appLogoPng,
+                width: 30.sp,
+                height: 30.sp,
+                fit: BoxFit.contain,
               ),
             ),
             SizedBox(width: 8.w),
@@ -155,7 +156,9 @@ class _HomeScreenBeforeLoginState extends State<HomeScreenBeforeLogin> {
                             borderRadius: BorderRadius.circular(16.r),
                           ),
                         ),
-                        textStyle: TextStyle(color: context.colorScheme.primary),
+                        textStyle: TextStyle(
+                          color: context.colorScheme.primary,
+                        ),
 
                         text: context.tr('start_learning'),
                         //Todo: GO TO LOGIN SCREEN
@@ -237,7 +240,9 @@ class _HomeScreenBeforeLoginState extends State<HomeScreenBeforeLogin> {
                         return ErrorFeedbackWidget(
                           errorMessage: state.coursesErrorMessage ?? 'Error',
                           onRetry: () {
-                            context.read<HomeBloc>().add(const GetCoursesEvent());
+                            context.read<HomeBloc>().add(
+                              const GetCoursesEvent(),
+                            );
                           },
                         );
                       }
@@ -311,7 +316,9 @@ class _HomeScreenBeforeLoginState extends State<HomeScreenBeforeLogin> {
                   Text(
                     context.tr('join_10k_learners'),
                     style: context.textTheme.bodyLarge!.copyWith(
-                      color: context.colorScheme.onSurface.withValues(alpha: 0.6),
+                      color: context.colorScheme.onSurface.withValues(
+                        alpha: 0.6,
+                      ),
                     ),
                   ),
                   SizedBox(height: 35.h),
@@ -334,14 +341,18 @@ class _HomeScreenBeforeLoginState extends State<HomeScreenBeforeLogin> {
                   Text(
                     context.tr('no_credit_card_required'),
                     style: context.textTheme.bodySmall!.copyWith(
-                      color: context.colorScheme.onSurface.withValues(alpha: 0.6),
+                      color: context.colorScheme.onSurface.withValues(
+                        alpha: 0.6,
+                      ),
                     ),
                   ),
                   SizedBox(height: 80.h),
                 ],
               ),
             ),
-            Divider(color: context.colorScheme.onSurface.withValues(alpha: 0.1)),
+            Divider(
+              color: context.colorScheme.onSurface.withValues(alpha: 0.1),
+            ),
             SizedBox(height: 16.h),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,

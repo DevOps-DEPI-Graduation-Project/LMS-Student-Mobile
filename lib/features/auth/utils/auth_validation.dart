@@ -1,115 +1,118 @@
-String? validateEmail(String? value) {
+import 'package:flutter/material.dart';
+import 'package:lms_student/core/localization/app_localizations.dart';
+
+String? validateEmail(String? value, BuildContext context) {
   if (value == null || value.isEmpty) {
-    return 'Email is required';
+    return context.tr('val_email_required');
   }
   final email = value.trim();
   if (email.length < 5) {
-    return 'Email must be at least 5 characters';
+    return context.tr('val_email_min_length');
   }
   if (email.length > 50) {
-    return 'Email must not exceed 50 characters';
+    return context.tr('val_email_max_length');
   }
   final emailRegex = RegExp(
-    r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$',
+    r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$",
   );
   if (!emailRegex.hasMatch(email)) {
-    return 'Please enter a valid email address (e.g., name@example.com)';
+    return context.tr('val_email_invalid');
   }
   if (email.contains('..')) {
-    return 'Email cannot contain consecutive dots';
+    return context.tr('val_email_consecutive_dots');
   }
   if (email.startsWith('.') || email.endsWith('.')) {
-    return 'Email cannot start or end with a dot';
+    return context.tr('val_email_dot_position');
   }
   final parts = email.split('@');
   if (parts.length != 2) {
-    return 'Email must contain exactly one @ symbol';
+    return context.tr('val_email_one_at');
   }
   final domain = parts[1];
   if (!domain.contains('.')) {
-    return 'Email domain must contain a dot (e.g., .com)';
+    return context.tr('val_email_domain_dot');
   }
   if (domain.startsWith('.') || domain.endsWith('.')) {
-    return 'Email domain cannot start or end with a dot';
+    return context.tr('val_email_domain_dot_position');
   }
   return null;
 }
 
-String? validateFirstName(String? value) {
+String? validateFirstName(String? value, BuildContext context) {
   if (value == null || value.isEmpty) {
-    return 'First name is required';
+    return context.tr('val_first_name_required');
   }
   final firstName = value.trim();
   if (firstName.length < 2) {
-    return 'First name must be at least 2 characters';
+    return context.tr('val_first_name_min_length');
   }
   if (firstName.length > 30) {
-    return 'First name must not exceed 30 characters';
+    return context.tr('val_first_name_max_length');
   }
   final nameRegex = RegExp(r'^[a-zA-Z\s]+$');
   if (!nameRegex.hasMatch(firstName)) {
-    return 'First name can only contain letters and spaces';
+    return context.tr('val_first_name_letters_only');
   }
   if (firstName.startsWith(' ') || firstName.endsWith(' ')) {
-    return 'First name cannot start or end with a space';
+    return context.tr('val_first_name_space_position');
   }
   if (firstName.contains(RegExp(r'\s{2,}'))) {
-    return 'First name cannot contain consecutive spaces';
+    return context.tr('val_first_name_consecutive_spaces');
   }
   return null;
 }
 
-String? validateLastName(String? value) {
+String? validateLastName(String? value, BuildContext context) {
   if (value == null || value.isEmpty) {
-    return 'Last name is required';
+    return context.tr('val_last_name_required');
   }
   final lastName = value.trim();
   if (lastName.length < 2) {
-    return 'Last name must be at least 2 characters';
+    return context.tr('val_last_name_min_length');
   }
   if (lastName.length > 30) {
-    return 'Last name must not exceed 30 characters';
+    return context.tr('val_last_name_max_length');
   }
   final nameRegex = RegExp(r'^[a-zA-Z\s]+$');
   if (!nameRegex.hasMatch(lastName)) {
-    return 'Last name can only contain letters and spaces';
+    return context.tr('val_last_name_letters_only');
   }
   if (lastName.startsWith(' ') || lastName.endsWith(' ')) {
-    return 'Last name cannot start or end with a space';
+    return context.tr('val_last_name_space_position');
   }
   if (lastName.contains(RegExp(r'\s{2,}'))) {
-    return 'Last name cannot contain consecutive spaces';
+    return context.tr('val_last_name_consecutive_spaces');
   }
   return null;
 }
 
-String? validatePassword(String? value) {
+String? validatePassword(String? value, BuildContext context) {
   if (value == null || value.isEmpty) {
-    return 'Password is required';
+    return context.tr('val_password_required');
   }
   if (value.length < 8) {
-    return 'Password must be at least 8 characters';
+    return context.tr('val_password_min_length');
   }
   if (value.length > 32) {
-    return 'Password must not exceed 32 characters';
+    return context.tr('val_password_max_length');
   }
   final passwordRegex = RegExp(
     r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,32}$',
   );
   if (!passwordRegex.hasMatch(value)) {
     if (!value.contains(RegExp(r'[A-Z]'))) {
-      return 'Password must contain at least one uppercase letter';
+      return context.tr('val_password_uppercase');
     }
     if (!value.contains(RegExp(r'[a-z]'))) {
-      return 'Password must contain at least one lowercase letter';
+      return context.tr('val_password_lowercase');
     }
     if (!value.contains(RegExp(r'[0-9]'))) {
-      return 'Password must contain at least one number';
+      return context.tr('val_password_number');
     }
     if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-      return 'Password must contain at least one special character (!@#\$%^&*)';
+      return context.tr('val_password_special');
     }
-    return 'Password must be 8-32 characters long';
+    return context.tr('val_password_format');
   }
   return null;
 }

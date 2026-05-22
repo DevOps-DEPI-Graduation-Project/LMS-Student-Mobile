@@ -100,7 +100,7 @@ class ResetPasswordBody extends StatelessWidget {
                       Icons.lock_outline_rounded,
                       size: context.isDesktop ? 22 : 18.w,
                     ),
-                    validator: (value) => validatePassword(value),
+                    validator: (value) => validatePassword(value, context),
                     keyboardType: TextInputType.visiblePassword,
                   ),
 

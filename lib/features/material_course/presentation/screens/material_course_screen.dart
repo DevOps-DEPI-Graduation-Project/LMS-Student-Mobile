@@ -9,6 +9,7 @@ import 'package:lms_student/features/material_course/presentation/bloc/material_
 import 'package:lms_student/features/material_course/presentation/bloc/material_course_state.dart';
 import 'package:lms_student/features/material_course/presentation/screens/widgets/material_card.dart';
 import 'package:lms_student/features/widgets/custom_text_form_field.dart';
+import 'package:lms_student/features/widgets/empty_state_widget.dart';
 import 'package:lms_student/features/widgets/error_feedback_widget.dart';
 import 'package:lms_student/features/widgets/loading_indicator_widget.dart';
 
@@ -134,13 +135,11 @@ class _MaterialCourseScreenState extends State<MaterialCourseScreen> {
                     }).toList();
 
                     if (filteredMaterials.isEmpty) {
-                      return Center(
-                        child: Text(
-                          _searchQuery.isEmpty
-                              ? context.tr('no_materials_found')
-                              : context.tr('no_matching_materials'),
-                          style: context.textTheme.bodyLarge,
-                        ),
+                      return EmptyStateWidget(
+                        icon: Icons.folder_open_outlined,
+                        title: _searchQuery.isEmpty
+                            ? context.tr('no_materials_found')
+                            : context.tr('no_matching_materials'),
                       );
                     }
 

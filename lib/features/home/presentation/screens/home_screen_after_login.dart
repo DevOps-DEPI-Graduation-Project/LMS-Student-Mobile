@@ -11,6 +11,7 @@ import 'package:lms_student/features/home/presentation/bloc/home_bloc.dart';
 import 'package:lms_student/features/home/presentation/get_data_from_cache.dart';
 
 import 'package:lms_student/features/widgets/loading_indicator_widget.dart';
+import 'package:lms_student/features/widgets/empty_state_widget.dart';
 import 'package:lms_student/features/widgets/error_feedback_widget.dart';
 import 'package:lms_student/features/widgets/course_card_horizontal.dart';
 import 'package:lms_student/features/widgets/course_card_vertical.dart';
@@ -186,30 +187,10 @@ class _HomeScreenAfterLoginState extends State<HomeScreenAfterLogin>
                       SizedBox(height: 5.h),
 
                       if (state.enrollments.isEmpty)
-                        Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(height: 50.h),
-
-                              Icon(
-                                Icons.error_outline,
-                                size: 64.sp,
-                                color: context.colorScheme.error,
-                              ),
-                              SizedBox(height: 12.h),
-                              Text(
-                                context.tr('no_courses_yet'),
-                                style: context.textTheme.bodyLarge,
-                              ),
-                              SizedBox(height: 8.h),
-                              Text(
-                                context.tr('explore_courses_to_start'),
-                                style: context.textTheme.bodySmall,
-                              ),
-                              SizedBox(height: 150.h),
-                            ],
-                          ),
+                        EmptyStateWidget(
+                          title: context.tr('no_courses_yet'),
+                          subtitle: context.tr('explore_courses_to_start'),
+                          height: 250.h,
                         )
                       else
                         Column(
@@ -329,39 +310,44 @@ class _HomeScreenAfterLoginState extends State<HomeScreenAfterLogin>
                         ),
                       ),
                       SizedBox(height: 10.h),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: IntrinsicHeight(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: state.courses.map((course) {
-                              return Padding(
-                                padding: EdgeInsets.only(right: 16.w),
-                                child: InkWell(
-                                  onTap: () {
-                                    context.push(
-                                      AppRoutes.courseDetailsScreen,
-                                      extra: {
-                                        'slug': course.slug,
-                                        'isEnrolled': course.isenrolled,
-                                      },
-                                    );
-                                  },
-                                  child: CourseCardVertical(
-                                    title: course.title,
-                                    price: course.price,
-                                    imagePath: course.image,
-                                    rating: course.avgRating,
-                                    totalStudents: course.studentsCount,
-                                    description: course.description,
-                                    instructorName: course.instructorName,
+                      if (state.courses.isEmpty)
+                        EmptyStateWidget(
+                          title: context.tr('no_courses_found'),
+                        )
+                      else
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: IntrinsicHeight(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: state.courses.map((course) {
+                                return Padding(
+                                  padding: EdgeInsets.only(right: 16.w),
+                                  child: InkWell(
+                                    onTap: () {
+                                      context.push(
+                                        AppRoutes.courseDetailsScreen,
+                                        extra: {
+                                          'slug': course.slug,
+                                          'isEnrolled': course.isenrolled,
+                                        },
+                                      );
+                                    },
+                                    child: CourseCardVertical(
+                                      title: course.title,
+                                      price: course.price,
+                                      imagePath: course.image,
+                                      rating: course.avgRating,
+                                      totalStudents: course.studentsCount,
+                                      description: course.description,
+                                      instructorName: course.instructorName,
+                                    ),
                                   ),
-                                ),
-                              );
-                            }).toList(),
+                                );
+                              }).toList(),
+                            ),
                           ),
                         ),
-                      ),
                       SizedBox(height: 16.h),
                     ],
                   );
