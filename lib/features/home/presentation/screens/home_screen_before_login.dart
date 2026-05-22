@@ -288,22 +288,32 @@ class _HomeScreenBeforeLoginState extends State<HomeScreenBeforeLogin> {
                     },
                   ),
                   SizedBox(height: 40.h),
+                  Text(
+                    context.tr('more_than_courses_header'),
+                    textAlign: TextAlign.center,
+                    style: context.textTheme.titleMedium!.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: context.colorScheme.onSurface,
+                      height: 1.5,
+                    ),
+                  ),
+                  SizedBox(height: 30.h),
                   FeatureCard(
-                    description: context.tr('test_your_knowledge'),
+                    description: context.tr('real_courses_packages_desc'),
                     path: "assets/icons/InteractiveQuizzes.png",
-                    title: context.tr('interactive_quizzes'),
+                    title: context.tr('real_courses_packages'),
                   ),
                   SizedBox(height: 20.h),
                   FeatureCard(
-                    description: context.tr('test_your_knowledge'),
+                    description: context.tr('student_dashboard_desc'),
                     path: "assets/icons/DiscussionBoards.png",
-                    title: context.tr('discussion_boards'),
+                    title: context.tr('student_dashboard_title'),
                   ),
                   SizedBox(height: 20.h),
                   FeatureCard(
-                    description: context.tr('test_your_knowledge'),
+                    description: context.tr('secure_personalized_desc'),
                     path: "assets/icons/DownloadableResources.png",
-                    title: context.tr('downloadable_resources'),
+                    title: context.tr('secure_personalized_title'),
                   ),
                   SizedBox(height: 40.h),
                   Text(
