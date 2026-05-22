@@ -7,7 +7,6 @@ import 'package:lms_student/core/localization/app_localizations.dart';
 import 'package:lms_student/core/routing/app_routes.dart';
 import 'package:lms_student/features/explore/presentation/screens/widget/custom_head_of_packe_detals.dart';
 import 'package:lms_student/features/explore/presentation/screens/widget/custom_package_caregory.dart';
-import 'package:lms_student/features/explore/presentation/screens/widget/custon_instractor_information.dart';
 import 'package:lms_student/features/package_details/presentation/bloc/package_details_bloc.dart';
 import 'package:lms_student/features/widgets/course_card_horizontal.dart';
 // import 'package:lms_student/features/widgets/custom_primary_button.dart';
@@ -81,11 +80,10 @@ class _PackageDetailsScreenState extends State<PackageDetailsScreen> {
                           boxShadow: [
                             BoxShadow(
                               color: context.colorScheme.onSurface.withValues(
-                                alpha: 0.2,
+                                alpha: 0.06,
                               ),
-                              blurRadius: 16,
-                              offset: const Offset(3, 3),
-                              spreadRadius: 1,
+                              blurRadius: 24,
+                              offset: const Offset(0, 8),
                             ),
                           ],
                         ),
@@ -102,32 +100,38 @@ class _PackageDetailsScreenState extends State<PackageDetailsScreen> {
                                 courseName: package.title,
                                 lesson: package.coursesCount,
                               ),
-                              SizedBox(height: 15.h),
-                              CustonInstractorInformation(
-                                insName: package.instructorName,
-                              ),
+                              if (package.description.isNotEmpty) ...[
+                                SizedBox(height: 16.h),
+                                Divider(
+                                  color: context.colorScheme.onSurface.withValues(
+                                    alpha: 0.08,
+                                  ),
+                                  thickness: 1,
+                                ),
+                                SizedBox(height: 12.h),
+                                Text(
+                                  context.tr('about_this_package'),
+                                  style: context.textTheme.titleMedium!.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: context.colorScheme.onSurface,
+                                  ),
+                                ),
+                                SizedBox(height: 8.h),
+                                Text(
+                                  package.description,
+                                  style: context.textTheme.bodyMedium!.copyWith(
+                                    color: context.colorScheme.onSurface.withValues(
+                                      alpha: 0.6,
+                                    ),
+                                    height: 1.5,
+                                  ),
+                                ),
+                              ],
                             ],
                           ),
                         ),
                       ),
-                      SizedBox(height: 15.h),
-                      Text(
-                        context.tr('about_this_package'),
-                        style: context.textTheme.displaySmall!.copyWith(
-                          color: context.colorScheme.onSurface,
-                        ),
-                      ),
-                      SizedBox(height: 10.h),
-                      Text(
-                        package.description,
-                        style: context.textTheme.titleLarge!.copyWith(
-                          fontWeight: FontWeight.w400,
-                          color: context.colorScheme.onSurface.withValues(
-                            alpha: 0.6,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10.h),
+                      SizedBox(height: 24.h),
                       Text(
                         context.tr('included_courses'),
                         style: context.textTheme.displaySmall!.copyWith(
@@ -142,7 +146,11 @@ class _PackageDetailsScreenState extends State<PackageDetailsScreen> {
                           final course = package.courses?[index];
                           return Padding(
                             padding: EdgeInsets.symmetric(vertical: 12.r),
-                            child: InkWell(
+                            child: CourseCardHorizontal(
+                              title: course!.title,
+                              instructorName: course.instructorName,
+                              rating: course.avgRating,
+                              imagePath: course.image,
                               onTap: () {
                                 context.push(
                                   AppRoutes.courseDetailsScreen,
@@ -152,14 +160,7 @@ class _PackageDetailsScreenState extends State<PackageDetailsScreen> {
                                   },
                                 );
                               },
-                              child: IntrinsicHeight(
-                                child: CourseCardHorizontal(
-                                  title: course!.title,
-                                  instructorName: course.instructorName,
-                                  rating: course.avgRating,
-                                  //! TODO add Price
-                                ),
-                              ),
+                              //! TODO add Price
                             ),
                           );
                         },

@@ -22,6 +22,7 @@ class _CustomHeadOfPackeDetalsState extends State<CustomHeadOfPackeDetals> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: 15.h),
         Text(
