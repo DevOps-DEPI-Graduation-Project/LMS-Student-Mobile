@@ -20,7 +20,10 @@ class CourseRepositoryImpl implements CourseRepository {
   }) async {
     final result = await apiConsumer.get<ResponseCourseModel>(
       EndPoint.allCourses,
-      queryParameters: ApiQueryParams.pagination(page: page, pageSize: pageSize),
+      queryParameters: ApiQueryParams.pagination(
+        page: page,
+        pageSize: pageSize,
+      ),
       fromJson: (json) => ResponseCourseModel.fromJson(json),
     );
 
@@ -59,7 +62,10 @@ class CourseRepositoryImpl implements CourseRepository {
   }) async {
     final result = await apiConsumer.get<ResponseCourseModel>(
       EndPoint.myEnrollments,
-      queryParameters: ApiQueryParams.pagination(page: page, pageSize: pageSize),
+      queryParameters: ApiQueryParams.pagination(
+        page: page,
+        pageSize: pageSize,
+      ),
       fromJson: (json) => ResponseCourseModel.fromJson(json),
     );
 
@@ -83,6 +89,18 @@ class CourseRepositoryImpl implements CourseRepository {
     return await apiConsumer.post<ResponseCourseBySlugModel>(
       '${EndPoint.enrollCourse}$slug/',
       fromJson: (json) => ResponseCourseBySlugModel.fromJson(json),
+    );
+  }
+
+  @override
+  Future<Either<String, Map<String, dynamic>>> rateCourse(
+    String slug,
+    int rating,
+  ) async {
+    return await apiConsumer.post<Map<String, dynamic>>(
+      EndPoint.courseRating(slug),
+      data: {'rate': rating},
+      fromJson: (json) => json,
     );
   }
 }

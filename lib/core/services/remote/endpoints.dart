@@ -27,6 +27,7 @@ class EndPoint {
   static String courseVideos(String slug) => "/courses/$slug/videos/";
   static String courseMaterials(String slug) => "/courses/$slug/materials/";
   static String videoComplete(String videoSlug) => "/video-complete/$videoSlug/";
+  static String courseRating(String courseSlug) =>"/courses/rate/$courseSlug/";
 
   // packages
   static String allPackages = "/packages/all/";

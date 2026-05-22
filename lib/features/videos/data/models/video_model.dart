@@ -3,7 +3,7 @@ class VideoModel {
   String title;
   String? videoUrl;
   String? videoUpload;
-  int order;
+  int? order;
   String? course;
 
   String? duration;
@@ -16,7 +16,7 @@ class VideoModel {
     required this.title,
     this.videoUrl,
     this.videoUpload,
-    required this.order,
+    this.order,
     this.course,
     this.duration = "00:00",
     this.isCompleted = false,
@@ -25,11 +25,11 @@ class VideoModel {
   });
 
   factory VideoModel.fromJson(Map<String, dynamic> json) => VideoModel(
-        slug: json["slug"],
-        title: json["title"],
+        slug: json["slug"] ?? "",
+        title: json["title"] ?? "",
         videoUrl: json["video_url"],
         videoUpload: json["video_upload"],
-        order: json["order"],
+        order: json["order"] != null ? int.tryParse(json["order"].toString()) : null,
         course: json["course"],
         isCompleted: json["is_completed"] ?? false,
         duration: json["duration"] ?? "00:00",

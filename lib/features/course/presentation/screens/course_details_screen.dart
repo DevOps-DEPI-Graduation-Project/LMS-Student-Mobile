@@ -261,7 +261,8 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                                           child: Column(
                                             children: [
                                               Text(
-                                                "${course.avgRating}",
+                                                (course.avgRating ?? 0.0)
+                                                    .toStringAsFixed(2),
                                                 style: context
                                                     .textTheme
                                                     .headlineMedium,
@@ -315,11 +316,14 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                         onTap: isEnrollLoading
                             ? null
                             : () {
-                                final token = CacheHelper.getDataString(key: ApiKey.accessToken);
+                                final token = CacheHelper.getDataString(
+                                  key: ApiKey.accessToken,
+                                );
                                 if (token == null || token.isEmpty) {
                                   showDialog(
                                     context: context,
-                                    builder: (dialogContext) => const LoginDialog(),
+                                    builder: (dialogContext) =>
+                                        const LoginDialog(),
                                   );
                                   return;
                                 }

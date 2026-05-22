@@ -277,5 +277,11 @@
   "login_required_title": "تسجيل الدخول مطلوب",
   "login_required_description": "انضم إلى مجتمع المتعلمين لدينا للاشتراك في الدورات، وتتبع تقدمك، وتخصيص ملفك الشخصي.",
   "login_required_btn_login": "تسجيل الدخول",
-  "login_required_btn_cancel": "ليس الآن"
+  "login_required_btn_cancel": "ليس الآن",
+  "your_feedback": "رأيك",
+  "rate_this_course": "قيّم هذا الكورس",
+  "select_star_to_leave_rating": "اختر نجماً لترك تقييمك",
+  "submit_rating": "إرسال التقييم",
+  "rating_submitted_success": "شكراً لتقييمك!",
+  "failed_to_submit_rating": "فشل إرسال التقييم. يرجى المحاولة مرة أخرى."
 }

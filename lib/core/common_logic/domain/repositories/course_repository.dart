@@ -19,4 +19,8 @@ abstract class CourseRepository {
     String slug,
   );
   Future<Either<String, List<CourseModel>>> searchInCourses(String query);
+  Future<Either<String, Map<String, dynamic>>> rateCourse(
+    String slug,
+    int rating,
+  );
 }

@@ -277,5 +277,11 @@
   "login_required_title": "Login Required",
   "login_required_description": "Join our community of learners to enroll in courses, track your progress, and customize your profile.",
   "login_required_btn_login": "Log In",
-  "login_required_btn_cancel": "Not Now"
+  "login_required_btn_cancel": "Not Now",
+  "your_feedback": "YOUR FEEDBACK",
+  "rate_this_course": "Rate this course",
+  "select_star_to_leave_rating": "Select a star to leave your rating",
+  "submit_rating": "Submit Rating",
+  "rating_submitted_success": "Thank you for your rating!",
+  "failed_to_submit_rating": "Failed to submit rating. Please try again."
 }

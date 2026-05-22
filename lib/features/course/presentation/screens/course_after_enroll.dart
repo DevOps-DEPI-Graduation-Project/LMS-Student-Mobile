@@ -7,7 +7,10 @@ import 'package:lms_student/core/extensions/context_extensions.dart';
 import 'package:lms_student/core/localization/app_localizations.dart';
 import 'package:lms_student/core/routing/app_routes.dart';
 import 'package:lms_student/features/course/presentation/bloc/coursedetails_bloc.dart';
+import 'package:lms_student/features/course/presentation/bloc/course_rating_bloc.dart';
 import 'package:lms_student/features/course/presentation/screens/widget/custom_course_material.dart';
+import 'package:lms_student/features/course/presentation/screens/widget/course_rating_card.dart';
+import 'package:lms_student/core/di/service_locator.dart';
 import 'package:lms_student/features/widgets/custom_image.dart';
 import 'package:lms_student/features/widgets/error_feedback_widget.dart';
 import 'package:lms_student/features/widgets/loading_indicator_widget.dart';
@@ -167,7 +170,8 @@ class _CourseAfterEnrollState extends State<CourseAfterEnroll> {
                                       child: Column(
                                         children: [
                                           Text(
-                                            "${course.avgRating}",
+                                            (course.avgRating ?? 0.0)
+                                                .toStringAsFixed(2),
                                             style: context
                                                 .textTheme
                                                 .headlineMedium,
@@ -212,12 +216,12 @@ class _CourseAfterEnrollState extends State<CourseAfterEnroll> {
                             SizedBox(height: 15.h),
                             Column(
                               children: [
-                                  Container(
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                      color: context.colorScheme.surfaceVariant,
-                                      borderRadius: BorderRadius.circular(16.r),
-                                    ),
+                                Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: context.colorScheme.surfaceVariant,
+                                    borderRadius: BorderRadius.circular(16.r),
+                                  ),
                                   padding: EdgeInsets.all(12.r),
                                   child: Row(
                                     children: [
@@ -255,6 +259,11 @@ class _CourseAfterEnrollState extends State<CourseAfterEnroll> {
                                 SizedBox(height: 20.h),
                               ],
                             ),
+                            BlocProvider(
+                              create: (context) => sl<CourseRatingBloc>(),
+                              child: CourseRatingCard(courseSlug: course.slug),
+                            ),
+                            SizedBox(height: 20.h),
                           ],
                         ),
                       ),
