@@ -252,22 +252,22 @@ class _SplashScreenState extends State<SplashScreen>
           ),
         );
       } else {
-        String msg = context.tr('authentication_failed');
-        if (state.message == "No token found") {
-          msg = context.tr('no_token_found');
-        } else if (state.message == "Session expired") {
-          msg = context.tr('session_expired');
-        } else if (state.isActive == false) {
-          msg = context.tr('account_inactive');
-        } else if (state.isVerified == false) {
-          msg = context.tr('account_unverified');
-        }
+        // String msg = context.tr('authentication_failed');
+        // if (state.message == "No token found") {
+        //   msg = context.tr('no_token_found');
+        // } else if (state.message == "Session expired") {
+        //   msg = context.tr('session_expired');
+        // } else if (state.isActive == false) {
+        //   msg = context.tr('account_inactive');
+        // } else if (state.isVerified == false) {
+        //   msg = context.tr('account_unverified');
+        // }
 
-        if (msg != context.tr('authentication_failed')) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(msg)));
-        }
+        // if (msg != context.tr('authentication_failed')) {
+        //   ScaffoldMessenger.of(
+        //     context,
+        //   ).showSnackBar(SnackBar(content: Text(msg)));
+        // }
         context.go(AppRoutes.loginScreen);
       }
     }
